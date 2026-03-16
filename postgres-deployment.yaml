@@ -19,8 +19,19 @@ spec:
         - containerPort: 5432
         env:
         - name: POSTGRES_DB
-          value: "studentsdb"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: POSTGRES_DB
         - name: POSTGRES_USER
-          value: "admin"
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: POSTGRES_USER
         - name: POSTGRES_PASSWORD
-          value: "password"
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: POSTGRES_PASSWORD
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: "trust"
