@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    image: niknilig/student-app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+      - postgres
+  redis:
+    image: redis
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: studentsdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql 
